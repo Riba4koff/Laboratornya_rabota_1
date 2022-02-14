@@ -9,7 +9,7 @@ using namespace std;
 int human_height_int;
 int human_weight_int;
 
-enum {NORMAL_WEIGHT, OVERWEIGHT, UNDERWEIGHT};
+enum {NORMAL_WEIGHT, OVERWEIGHT, UNDERWEIGHT};	
 
 HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 
@@ -35,7 +35,7 @@ void lifeCycle();
 
 int main(){
 	setlocale(LC_ALL, "rus");
-	
+
 	lifeCycle();
 
 	return 0;
@@ -404,8 +404,8 @@ void errorScreen(int human_weight, int human_height, int height_or_weight) {
 //Ввод данных
 void inputData(int &height, int &weight) {
 
-	char human_height[10]; //человеческий рост
-	char human_weight[10]; //человеческий вес
+	char human_height[100]; //человеческий рост
+	char human_weight[100]; //человеческий вес
 
 	bool error_has_been_used = false;
 
@@ -451,7 +451,7 @@ void inputData(int &height, int &weight) {
 	SetConsoleCursorPosition(hConsole, position);
 	cin >> human_weight;
 
-	if ((char_to_int(human_weight) < 30 && char_to_int(human_weight)) > 200 || !is_number(human_weight)) {
+	if ((char_to_int(human_weight) < 30 || (char_to_int(human_weight)) > 200 || (!is_number(human_weight)))) {
 		do
 		{
 			system("cls");
