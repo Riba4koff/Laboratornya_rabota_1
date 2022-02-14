@@ -9,23 +9,43 @@ using namespace std;
 int human_height_int;
 int human_weight_int;
 
+enum {NORMAL_WEIGHT, OVERWEIGHT, UNDERWEIGHT};
+
+HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+
+COORD position = { 0, 0 };
+
 bool is_number(char number[]);
 int char_to_int(char number[]);
 
 void mainScreen();
 void operationScreen();
+void endScreen();
+void errorScreen(int human_weight, int human_height, int height_or_weight);
+void answerScreen(int how_much_weight, int human_height, int human_weight);
 void inputData();
-void lifeCircle();
+void lifeCycle();
 
+
+
+
+
+//////////////////////////////////
 
 
 int main(){
 	setlocale(LC_ALL, "rus");
-
-	lifeCircle();
 	
+	lifeCycle();
+
 	return 0;
 }
+
+
+//////////////////////////////////
+
+
+
 
 //Проверка на валидность
 bool is_number(char number[]) {
@@ -206,6 +226,181 @@ void operationScreen() {
 		cout << "-";
 	}
 }
+//Экран ошибки
+void errorScreen(int human_weight, int human_height, int height_or_weight) {
+
+	system("cls");
+
+	int height = 10; //высота окна
+	int weight = 40; //ширина окна
+
+	for (int i = 0; i < weight + 1; i++) {
+		cout << "-";
+	}
+
+	cout << "\n";
+
+	if (height_or_weight == 0) {
+		for (int i = 0; i < height - 1; i++) {
+
+			bool i_is_not_a_second_third_fourth = (i == 2 || i == 3 || i == 4) ? 0 : 1;
+
+			for (int j = 0; j <= weight; j++)
+			{
+				if ((j == 0 || j == weight) && i_is_not_a_second_third_fourth) {
+					cout << "|";
+				}
+				else if (i == 2) {
+					if (j == 0) cout << "|";
+					else if (j == 17) cout << "Введите";
+					else if (j == weight - 6) cout << "|";
+					else cout << " ";
+				}
+				else if (i == 3) {
+					if (j == 0) cout << "|";
+					else if (j == 10) {
+						cout << "свой рост: ";
+					}
+					else if (j == weight - 10) cout << "|";
+					else cout << " ";
+				}
+				else if (i == 4) {
+					if (j == 0) cout << "|";
+					else if (j == 11) {
+						cout << "свой вес: ";
+					}
+					else if (j == weight - 9) cout << "|";
+					else cout << " ";
+				}
+				else cout << " ";
+			}
+			cout << "\n";
+		}
+
+
+		for (int i = 0; i < weight + 1; i++) {
+			cout << "-";
+		}
+
+		cout << "\n";
+
+		for (int i = 0; i < 2; i++)
+		{
+			for (int j = 0; j <= weight; j++) {
+				if (i == 0) {
+					if (j == 0 || j == weight - 23)
+						cout << "|";
+					else if (j == 8) {
+						cout << "Ошибка, попробуйте снова";
+					}
+					else
+						cout << " ";
+				}
+				else 
+					if (i == 1) {
+						if (j == 0 || j == weight - 31)
+							cout << "|";
+						else if (j == 5) {
+							cout << "Подсказка, рост от 100 до 230 см";
+						}
+						else
+							cout << " ";
+					}
+			}
+			cout << "\n";
+		}
+		for (int i = 0; i < weight + 1; i++) {
+			cout << "-";
+		}
+
+		position = { 21, 4 };
+		SetConsoleCursorPosition(hConsole, position);
+	}
+	else
+		if (height_or_weight == 1) {
+			for (int i = 0; i < height - 1; i++) {
+
+				bool i_is_not_a_second_third_fourth = (i == 2 || i == 3 || i == 4) ? 0 : 1;
+
+				for (int j = 0; j <= weight; j++)
+				{
+					if ((j == 0 || j == weight) && i_is_not_a_second_third_fourth) {
+						cout << "|";
+					}
+					else if (i == 2) {
+						if (j == 0) cout << "|";
+						else if (j == 17) cout << "Введите";
+						else if (j == weight - 6) cout << "|";
+						else cout << " ";
+					}
+					else if (i == 3) {
+						if (j == 0) cout << "|";
+						else if (j == 10) {
+							cout << "свой рост: ";
+						}
+						else if (j == weight - 10) cout << "|";
+						else cout << " ";
+					}
+					else if (i == 4) {
+						if (j == 0) cout << "|";
+						else if (j == 11) {
+							cout << "свой вес: ";
+						}
+						else if (j == weight - 9) cout << "|";
+						else cout << " ";
+					}
+					else cout << " ";
+				}
+				cout << "\n";
+			}
+
+
+			for (int i = 0; i < weight + 1; i++) {
+				cout << "-";
+			}
+
+			cout << "\n";
+
+			for (int i = 0; i < 2; i++)
+			{
+				for (int j = 0; j <= weight; j++) {
+					if (i == 0) {
+						if (j == 0 || j == weight - 23)
+							cout << "|";
+						else if (j == 8) {
+							cout << "Ошибка, попробуйте снова";
+						}
+						else
+							cout << " ";
+					}
+					else
+						if (i == 1) {
+							if (j == 0 || j == weight - 29)
+								cout << "|";
+							else if (j == 5) {
+								cout << "Подсказка, вес от 30 до 200 кг";
+							}
+							else
+								cout << " ";
+						}
+				}
+				cout << "\n";
+			}
+			for (int i = 0; i < weight + 1; i++) {
+				cout << "-";
+			}
+
+			position = { 21, 4 };
+			SetConsoleCursorPosition(hConsole, position);
+			cout << human_height;
+
+			position = { 21, 5 };
+			SetConsoleCursorPosition(hConsole, position);
+
+
+		}
+
+}
 //Ввод данных
 void inputData(int &height, int &weight) {
 
@@ -213,8 +408,6 @@ void inputData(int &height, int &weight) {
 	char human_weight[10]; //человеческий вес
 
 	bool error_has_been_used = false;
-
-	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 
 	COORD position = { 21, 4 };
 	SetConsoleCursorPosition(hConsole, position);
@@ -227,11 +420,15 @@ void inputData(int &height, int &weight) {
 			system("cls");
 			operationScreen();
 			if ((char_to_int(human_height) > 230 || char_to_int(human_height) < 100) && char_to_int(human_height) > 0) {
-				cout << "\n\nОшибка\nПопробуйте еще раз\nПодсказка: диапазон роста от 100 до 230 см";
+				
+				errorScreen(char_to_int(human_weight), char_to_int(human_height), 0);
+
 				error_has_been_used = true;
 			}
 			else if (!is_number(human_height)) { 
-				cout << "\n\nОшибка\nПопробуйте еще раз\nПодсказка: диапазон роста от 100 до 230 см"; 
+				
+				errorScreen(char_to_int(human_weight), char_to_int(human_height), 0);
+
 				error_has_been_used = true;
 			}
 			SetConsoleCursorPosition(hConsole, position);
@@ -268,14 +465,18 @@ void inputData(int &height, int &weight) {
 			SetConsoleCursorPosition(hConsole, position);
 
 			if (char_to_int(human_weight) < 30 || char_to_int(human_weight) > 200) {
+
+				errorScreen(char_to_int(human_weight), char_to_int(human_height), 1);
 				position = { 0, 12 };
 				SetConsoleCursorPosition(hConsole, position);
-				cout << "\n\nОшибка\nПопробуйте еще раз\nПодсказка: диапазон веса от 30 до 200 кг";
+				
 			}
 			else if (!is_number(human_weight)) {
+
+				errorScreen(char_to_int(human_weight), char_to_int(human_height), 1);
 				position = { 0, 12 };
 				SetConsoleCursorPosition(hConsole, position);
-				cout << "\n\nОшибка\nПопробуйте еще раз\nПодсказка: диапазон веса от 30 до 200 кг";
+
 			}
 			position = { 21, 5 };
 			SetConsoleCursorPosition(hConsole, position);
@@ -291,7 +492,7 @@ void inputData(int &height, int &weight) {
 
 }
 //Жизненный цикл
-void lifeCircle() {
+void lifeCycle() {
 	bool life_circle = true;
 	char chose;
 
@@ -316,17 +517,17 @@ void lifeCircle() {
 
 
 			if (min_average_weight <= human_weight_int && human_weight_int <= max_average_weight ) {
-				cout << "Ваш средний вес удовлетворяет норме";
+				answerScreen(NORMAL_WEIGHT, human_weight_int, human_height_int);
 			}
 				else if (human_weight_int > max_average_weight) {
-				cout << "Ваш вес выше нормы";
+				answerScreen(OVERWEIGHT, human_weight_int, human_height_int);
 			}
 			else
 				if (human_weight_int < min_average_weight) {
-					cout << "Ваш вес меньше нормы";
+					answerScreen(UNDERWEIGHT, human_weight_int, human_height_int);
 				}
 
-			cout << "\n\nНажмите Enter, чтобы продолжить\nНажмите Esc, чтобы выйти\n\n";
+			cout << "\n\n";
 		}
 		else {
 			system("cls");
@@ -334,6 +535,242 @@ void lifeCircle() {
 		}
 
 	} while (life_circle);
+
+	endScreen();
+
+	cout << "\n\n\n";
+}
+//Завершающий экран
+void endScreen() {
+
+	int height = 10; //высота окна
+	int weight = 40; //ширина окна
+
+	for (int i = 0; i < weight + 1; i++) {
+		cout << "-";
+	}
+
+	cout << "\n";
+
+	for (int i = 0; i < height - 1; i++) {
+
+		bool i_is_not_a_second_third_fourth = (i == 2 || i == 3 || i == 4) ? 0 : 1;
+
+		for (int j = 0; j <= weight; j++)
+		{
+			if ((j == 0 || j == weight) && i_is_not_a_second_third_fourth) {
+				cout << "|";
+			}
+			else if (i == 2) {
+				if (j == 0) cout << "|";
+				else if (j == 16) cout << "Программа";
+				else if (j == weight - 8) cout << "|";
+				else cout << " ";
+			}
+			else if (i == 3) {
+				if (j == 0) cout << "|";
+				else if (j == 13) {
+					cout << "Оптимальный вес";
+				}
+				else if (j == weight - 14) cout << "|";
+				else cout << " ";
+			}
+			else if (i == 4) {
+				if (j == 0) cout << "|";
+				else if (j == 10) {
+					cout << "Завершила свою работу";
+				}
+				else if (j == weight - 20) cout << "|";
+				else cout << " ";
+			}
+			else cout << " ";
+		}
+		cout << "\n";
+	}
+
+
+	for (int i = 0; i < weight + 1; i++) {
+		cout << "-";
+	}
+
+	cout << "\n";
+
+	for (int i = 0; i < 1; i++)
+	{
+		for (int j = 0; j <= weight; j++) {
+			if (j == 0 || j == weight - 14)
+				cout << "|";
+			else if (j == 13) {
+				cout << "До новых встреч";
+			}
+			else
+				cout << " ";
+		}
+		cout << "\n";
+	}
+	for (int i = 0; i < weight + 1; i++) {
+		cout << "-";
+	}
+}
+//Экран ответа
+void answerScreen(int how_much_weight, int human_weight, int human_height) {
+	int height = 10; //высота окна
+	int weight = 40; //ширина окна
+
+	system("cls");
+
+	for (int i = 0; i < weight + 1; i++) {
+		cout << "-";
+	}
+
+	cout << "\n";
+
+	for (int i = 0; i < height - 1; i++) {
+
+		bool i_is_not_a_second_third_fourth = (i == 2 || i == 3 || i == 4) ? 0 : 1;
+
+		for (int j = 0; j <= weight; j++)
+		{
+			if ((j == 0 || j == weight) && i_is_not_a_second_third_fourth) {
+				cout << "|";
+			}
+			else if (i == 2) {
+				if (j == 0) cout << "|";
+				else if (j == 17) cout << "Введите";
+				else if (j == weight - 6) cout << "|";
+				else cout << " ";
+			}
+			else if (i == 3) {
+				if (j == 0) cout << "|";
+				else if (j == 10) {
+					cout << "свой рост: ";
+				}
+				else if (j == weight - 10) cout << "|";
+				else cout << " ";
+			}
+			else if (i == 4) {
+				if (j == 0) cout << "|";
+				else if (j == 11) {
+					cout << "свой вес: ";
+				}
+				else if (j == weight - 9) cout << "|";
+				else cout << " ";
+			}
+			else cout << " ";
+		}
+		cout << "\n";
+	}
+
+	for (int i = 0; i < weight + 1; i++) {
+		cout << "-";
+	}
+
+	cout << "\n";
+
+	switch (how_much_weight) {
+	case 0:
+		for (int i = 0; i < 2; i++)
+		{
+			for (int j = 0; j <= weight; j++) {
+				if (i == 0) {
+					if (j == 0 || j == weight - 14)
+						cout << "|";
+					else if (j == 12) {
+						cout << "Ваш вес в норме";
+					}
+					else
+						cout << " ";
+				}
+				else
+					if (i == 1) {
+						if (j == 0 || j == weight - 25)
+							cout << "|";
+						else if (j == 8) {
+							cout << "Enter - Далее, Esc - Выход";
+						}
+						else
+							cout << " ";
+					}
+
+			}
+			cout << "\n";
+		}
+		break;
+	case 1:
+		for (int i = 0; i < 2; i++)
+		{
+			for (int j = 0; j <= weight; j++) {
+				if (i == 0) {
+					if (j == 0 || j == weight - 17)
+						cout << "|";
+					else if (j == 12) {
+						cout << "Ваш вес выше нормы";
+					}
+					else
+						cout << " ";
+				}
+				else
+					if (i == 1) {
+						if (j == 0 || j == weight - 25)
+							cout << "|";
+						else if (j == 8) {
+							cout << "Enter - Далее, Esc - Выход";
+						}
+						else
+							cout << " ";
+					}
+
+			}
+			cout << "\n";
+		}
+		break;
+	case 2:
+		for (int i = 0; i < 2; i++)
+		{
+			for (int j = 0; j <= weight; j++) {
+				if (i == 0) {
+					if (j == 0 || j == weight - 17)
+						cout << "|";
+					else if (j == 12) {
+						cout << "Ваш вес ниже нормы";
+					}
+					else
+						cout << " ";
+				}
+				else
+					if (i == 1) {
+						if (j == 0 || j == weight - 25)
+							cout << "|";
+						else if (j == 8) {
+							cout << "Enter - Далее, Esc - Выход";
+						}
+						else
+							cout << " ";
+					}
+
+			}
+			cout << "\n";
+		}
+		break;
+	}
+	
+
+	for (int i = 0; i < weight + 1; i++) {
+		cout << "-";
+	}
+
+	position = { 21, 4 };
+	SetConsoleCursorPosition(hConsole, position);
+	cout << human_height;
+
+	position = { 21, 5 };
+	SetConsoleCursorPosition(hConsole, position);
+	cout << human_weight;
+
+	position = { 0, 12 };
+	SetConsoleCursorPosition(hConsole, position);
+
+
 }
 
 ///////////////////////////////////////////
