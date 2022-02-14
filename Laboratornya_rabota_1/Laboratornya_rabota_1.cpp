@@ -34,11 +34,13 @@ void lifeCycle();
 
 
 int main(){
+
 	setlocale(LC_ALL, "rus");
 
 	lifeCycle();
 
 	return 0;
+
 }
 
 
@@ -58,7 +60,7 @@ bool is_number(char number[]) {
 			return true;
 	}
 }
-//Перевод из char в int массива
+//Перевод из char в int
 int char_to_int(char number[]) {
 	int number_of_digits = 0;
 
@@ -127,6 +129,7 @@ void mainScreen() {
 		}
 		cout << "\n";
 	}
+
 
 
 	for (int i = 0; i < weight + 1; i++) {
