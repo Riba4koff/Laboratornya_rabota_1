@@ -9,7 +9,7 @@ using namespace std;
 int human_height_int;
 int human_weight_int;
 
-enum {NORMAL_WEIGHT, OVERWEIGHT, UNDERWEIGHT};	
+enum { NORMAL_WEIGHT, OVERWEIGHT, UNDERWEIGHT };
 
 HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 
@@ -33,7 +33,7 @@ void lifeCycle();
 //////////////////////////////////
 
 
-int main(){
+int main() {
 
 	setlocale(LC_ALL, "rus");
 
@@ -299,7 +299,7 @@ void errorScreen(int human_weight, int human_height, int height_or_weight) {
 					else
 						cout << " ";
 				}
-				else 
+				else
 					if (i == 1) {
 						if (j == 0 || j == weight - 31)
 							cout << "|";
@@ -405,7 +405,7 @@ void errorScreen(int human_weight, int human_height, int height_or_weight) {
 
 }
 //Ввод данных
-void inputData(int &height, int &weight) {
+void inputData(int& height, int& weight) {
 
 	char human_height[100]; //человеческий рост
 	char human_weight[100]; //человеческий вес
@@ -421,15 +421,14 @@ void inputData(int &height, int &weight) {
 		do
 		{
 			system("cls");
-			operationScreen();
 			if ((char_to_int(human_height) > 230 || char_to_int(human_height) < 100) && char_to_int(human_height) > 0) {
-				
+
 				errorScreen(char_to_int(human_weight), char_to_int(human_height), 0);
 
 				error_has_been_used = true;
 			}
-			else if (!is_number(human_height)) { 
-				
+			else if (!is_number(human_height)) {
+
 				errorScreen(char_to_int(human_weight), char_to_int(human_height), 0);
 
 				error_has_been_used = true;
@@ -441,11 +440,9 @@ void inputData(int &height, int &weight) {
 
 	if (error_has_been_used) {
 		system("cls");
-	operationScreen();
-
-	position = { 21, 4 };
-	SetConsoleCursorPosition(hConsole, position);
-	cout << char_to_int(human_height);
+		position = { 21, 4 };
+		SetConsoleCursorPosition(hConsole, position);
+		cout << char_to_int(human_height);
 	}
 
 	human_height_int = char_to_int(human_height);
@@ -458,8 +455,6 @@ void inputData(int &height, int &weight) {
 		do
 		{
 			system("cls");
-			operationScreen();
-
 			position = { 21, 4 };
 			SetConsoleCursorPosition(hConsole, position);
 			cout << human_height;
@@ -472,7 +467,7 @@ void inputData(int &height, int &weight) {
 				errorScreen(char_to_int(human_weight), char_to_int(human_height), 1);
 				position = { 0, 12 };
 				SetConsoleCursorPosition(hConsole, position);
-				
+
 			}
 			else if (!is_number(human_weight)) {
 
@@ -519,10 +514,10 @@ void lifeCycle() {
 			int min_average_weight = human_height_int - 100 - 15;
 
 
-			if (min_average_weight <= human_weight_int && human_weight_int <= max_average_weight ) {
+			if (min_average_weight <= human_weight_int && human_weight_int <= max_average_weight) {
 				answerScreen(NORMAL_WEIGHT, human_weight_int, human_height_int);
 			}
-				else if (human_weight_int > max_average_weight) {
+			else if (human_weight_int > max_average_weight) {
 				answerScreen(OVERWEIGHT, human_weight_int, human_height_int);
 			}
 			else
@@ -756,7 +751,7 @@ void answerScreen(int how_much_weight, int human_weight, int human_height) {
 		}
 		break;
 	}
-	
+
 
 	for (int i = 0; i < weight + 1; i++) {
 		cout << "-";
