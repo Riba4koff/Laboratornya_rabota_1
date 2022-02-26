@@ -6,8 +6,11 @@
 
 using namespace std;
 
-int human_height_int;
-int human_weight_int;
+int human_height_int_;
+int human_weight_int_;
+
+int height_ = 10; //высота окна
+int weight_ = 40; //ширина окна
 
 enum { NORMAL_WEIGHT, OVERWEIGHT, UNDERWEIGHT };
 
@@ -18,16 +21,15 @@ COORD position = { 0, 0 };
 bool is_number(char number[]);
 int char_to_int(char number[]);
 
-void mainScreen();
-void operationScreen();
-void endScreen();
-void errorScreen(int human_weight, int human_height, int height_or_weight);
-void answerScreen(int how_much_weight, int human_height, int human_weight);
-void inputData();
-void lifeCycle();
-
-
-
+void Frame1(int weight, int height);
+void Frame2(int weight, int height);
+void mainScreen(int height, int weight);
+void operationScreen(int height, int weight);
+void endScreen(int height, int weight);
+void errorScreen(int human_weight, int human_height, int height_or_weight, int height, int weight);
+void answerScreen(int how_much_weight, int human_weight, int human_height, int height, int weight);
+void inputData(int* human_height_, int* human_weight_, int weight, int height);
+void lifeCycle(int human_height_int, int human_weight_int, int weight, int height);
 
 
 //////////////////////////////////
@@ -37,7 +39,9 @@ int main() {
 
 	setlocale(LC_ALL, "rus");
 
-	lifeCycle();
+
+	lifeCycle(human_height_int_, human_weight_int_, weight_, height_);
+
 
 	return 0;
 
@@ -45,8 +49,6 @@ int main() {
 
 
 //////////////////////////////////
-
-
 
 
 //Проверка на валидность
@@ -83,11 +85,8 @@ int char_to_int(char number[]) {
 
 ////////////////////////////////////////////
 
-//Главный экран
-void mainScreen() {
-	int height = 10;
-	int weight = 40;
-
+//Рамка с 1 строкой снизу
+void Frame1(int weight, int height) {
 	for (int i = 0; i < weight + 1; i++) {
 		cout << "-";
 	}
@@ -95,43 +94,14 @@ void mainScreen() {
 	cout << "\n";
 
 	for (int i = 0; i < height - 1; i++) {
-		bool i_is_not_a_second_third_fourth_and_fifth = (i == 2 || i == 3 || i == 4 || i == 5) ? 0 : 1;
-		for (int j = 0; j <= weight; j++) {
-			if ((j == 0 || j == weight) && i_is_not_a_second_third_fourth_and_fifth) {
-				cout << "|";
-			}
-			else if (i == 2) {
-				if (j == 0) cout << "|";
-				else if (j == 15) cout << "Программа";
-				else if (j == weight - 8) cout << "|";
-				else cout << " ";
-			}
-			else if (i == 3) {
-				if (j == 0) cout << "|";
-				else if (j == 12) cout << "Оптимальный вес";
-				else if (j == weight - 14) cout << "|";
-				else cout << " ";
-			}
-			else if (i == 4) {
-				if (j == 0) cout << "|";
-				else if (j == 15) cout << "Гр. 1092";
-				else if (j == weight - 7) cout << "|";
-				else cout << " ";
-			}
-			else if (i == 5) {
-				if (j == 0) cout << "|";
-				else if (j == 8) cout << "Рыбаков Павел Алексеевич";
-				else if (j == weight - 23) cout << "|";
-				else cout << " ";
-			}
-			else
-				cout << " ";
+
+		for (int j = 0; j <= weight; j++)
+		{
+			if (j == 0 || j == weight) cout << "|";
+			else cout << " ";
 		}
 		cout << "\n";
 	}
-
-
-
 	for (int i = 0; i < weight + 1; i++) {
 		cout << "-";
 	}
@@ -141,28 +111,20 @@ void mainScreen() {
 	for (int i = 0; i < 1; i++)
 	{
 		for (int j = 0; j <= weight; j++) {
-			if (j == 0 || j == weight - 25)
+			if (j == 0 || j == weight)
 				cout << "|";
-			else if (j == 7) {
-				cout << "Esc - Выход, Enter - Далее";
-			}
 			else
 				cout << " ";
 		}
 		cout << "\n";
 	}
-
 	for (int i = 0; i < weight + 1; i++) {
 		cout << "-";
 	}
-	cout << "\n";
+
 }
-//Рабочий экран
-void operationScreen() {
-
-	int height = 10; //высота окна
-	int weight = 40; //ширина окна
-
+//Рамка с 2 строками снизу
+void Frame2(int weight, int height) {
 	for (int i = 0; i < weight + 1; i++) {
 		cout << "-";
 	}
@@ -175,51 +137,22 @@ void operationScreen() {
 
 		for (int j = 0; j <= weight; j++)
 		{
-			if ((j == 0 || j == weight) && i_is_not_a_second_third_fourth) {
-				cout << "|";
-			}
-			else if (i == 2) {
-				if (j == 0) cout << "|";
-				else if (j == 17) cout << "Введите";
-				else if (j == weight - 6) cout << "|";
-				else cout << " ";
-			}
-			else if (i == 3) {
-				if (j == 0) cout << "|";
-				else if (j == 10) {
-					cout << "свой рост: ";
-				}
-				else if (j == weight - 10) cout << "|";
-				else cout << " ";
-			}
-			else if (i == 4) {
-				if (j == 0) cout << "|";
-				else if (j == 11) {
-					cout << "свой вес: ";
-				}
-				else if (j == weight - 9) cout << "|";
-				else cout << " ";
-			}
+			if (j == 0 || j == weight) cout << "|";
 			else cout << " ";
 		}
 		cout << "\n";
 	}
-
-
 	for (int i = 0; i < weight + 1; i++) {
 		cout << "-";
 	}
 
 	cout << "\n";
 
-	for (int i = 0; i < 1; i++)
+	for (int i = 0; i < 2; i++)
 	{
 		for (int j = 0; j <= weight; j++) {
-			if (j == 0 || j == weight - 13)
+			if (j == 0 || j == weight)
 				cout << "|";
-			else if (j == 14) {
-				cout << "Введите данные";
-			}
 			else
 				cout << " ";
 		}
@@ -228,170 +161,116 @@ void operationScreen() {
 	for (int i = 0; i < weight + 1; i++) {
 		cout << "-";
 	}
+
+}
+//Главный экран
+void mainScreen(int height, int weight) {
+
+	Frame1(weight, height);
+
+	position = { 15, 3 };
+	SetConsoleCursorPosition(hConsole, position);
+	cout << "Программа";
+
+	position = { 12, 4 };
+	SetConsoleCursorPosition(hConsole, position);
+	cout << "Оптимальный вес";
+
+	position = { 7, 5 };
+	SetConsoleCursorPosition(hConsole, position);
+	cout << "Рыбаков Павел Алексеевич";
+	
+	position = { 15, 6 };
+	SetConsoleCursorPosition(hConsole, position);
+	cout << "Гр. 1092";
+
+
+	position = { 8 , 11 };
+	SetConsoleCursorPosition(hConsole, position);
+	cout << "Esc - Выход, Enter - Далее";
+
+	position = { 0, 13 };
+	SetConsoleCursorPosition(hConsole, position);
+}
+//Рабочий экран
+void operationScreen(int height, int weight) {
+
+	Frame1(weight, height);
+
+	position = { 17, 3 };
+	SetConsoleCursorPosition(hConsole, position);
+	cout << "Введите";
+
+	position = { 10, 4 };
+	SetConsoleCursorPosition(hConsole, position);
+	cout << "свой рост: ";
+
+	position = { 11, 5 };
+	SetConsoleCursorPosition(hConsole, position);
+	cout << "свой вес: ";
+
+	position = { 14, 11 };
+	SetConsoleCursorPosition(hConsole, position);
+	cout << "Enter - Ввод";
+	
+	position = { 0, 12 };
+	SetConsoleCursorPosition(hConsole, position);
+
 }
 //Экран ошибки
-void errorScreen(int human_weight, int human_height, int height_or_weight) {
+void errorScreen(int human_weight, int human_height, int height_or_weight, int height, int weight) {
 
 	system("cls");
 
-	int height = 10; //высота окна
-	int weight = 40; //ширина окна
-
-	for (int i = 0; i < weight + 1; i++) {
-		cout << "-";
-	}
-
-	cout << "\n";
+	Frame2(weight, height);
 
 	if (height_or_weight == 0) {
-		for (int i = 0; i < height - 1; i++) {
 
-			bool i_is_not_a_second_third_fourth = (i == 2 || i == 3 || i == 4) ? 0 : 1;
+		position = { 17, 3 };
+		SetConsoleCursorPosition(hConsole, position);
+		cout << "Введите";
 
-			for (int j = 0; j <= weight; j++)
-			{
-				if ((j == 0 || j == weight) && i_is_not_a_second_third_fourth) {
-					cout << "|";
-				}
-				else if (i == 2) {
-					if (j == 0) cout << "|";
-					else if (j == 17) cout << "Введите";
-					else if (j == weight - 6) cout << "|";
-					else cout << " ";
-				}
-				else if (i == 3) {
-					if (j == 0) cout << "|";
-					else if (j == 10) {
-						cout << "свой рост: ";
-					}
-					else if (j == weight - 10) cout << "|";
-					else cout << " ";
-				}
-				else if (i == 4) {
-					if (j == 0) cout << "|";
-					else if (j == 11) {
-						cout << "свой вес: ";
-					}
-					else if (j == weight - 9) cout << "|";
-					else cout << " ";
-				}
-				else cout << " ";
-			}
-			cout << "\n";
-		}
+		position = { 10, 4 };
+		SetConsoleCursorPosition(hConsole, position);
+		cout << "свой рост: ";
 
+		position = { 11, 5 };
+		SetConsoleCursorPosition(hConsole, position);
+		cout << "свой вес: ";
 
-		for (int i = 0; i < weight + 1; i++) {
-			cout << "-";
-		}
+		position = { 8, 11 };
+		SetConsoleCursorPosition(hConsole, position);
+		cout << "Ошибка, попробуйте снова";
 
-		cout << "\n";
-
-		for (int i = 0; i < 2; i++)
-		{
-			for (int j = 0; j <= weight; j++) {
-				if (i == 0) {
-					if (j == 0 || j == weight - 23)
-						cout << "|";
-					else if (j == 8) {
-						cout << "Ошибка, попробуйте снова";
-					}
-					else
-						cout << " ";
-				}
-				else
-					if (i == 1) {
-						if (j == 0 || j == weight - 31)
-							cout << "|";
-						else if (j == 5) {
-							cout << "Подсказка, рост от 100 до 230 см";
-						}
-						else
-							cout << " ";
-					}
-			}
-			cout << "\n";
-		}
-		for (int i = 0; i < weight + 1; i++) {
-			cout << "-";
-		}
+		position = { 5, 12 };
+		SetConsoleCursorPosition(hConsole, position);
+		cout << "Подсказка, рост от 100 до 230 см";
 
 		position = { 21, 4 };
 		SetConsoleCursorPosition(hConsole, position);
-	}
+	} 
 	else
 		if (height_or_weight == 1) {
-			for (int i = 0; i < height - 1; i++) {
 
-				bool i_is_not_a_second_third_fourth = (i == 2 || i == 3 || i == 4) ? 0 : 1;
+			position = { 17, 3 };
+			SetConsoleCursorPosition(hConsole, position);
+			cout << "Введите";
 
-				for (int j = 0; j <= weight; j++)
-				{
-					if ((j == 0 || j == weight) && i_is_not_a_second_third_fourth) {
-						cout << "|";
-					}
-					else if (i == 2) {
-						if (j == 0) cout << "|";
-						else if (j == 17) cout << "Введите";
-						else if (j == weight - 6) cout << "|";
-						else cout << " ";
-					}
-					else if (i == 3) {
-						if (j == 0) cout << "|";
-						else if (j == 10) {
-							cout << "свой рост: ";
-						}
-						else if (j == weight - 10) cout << "|";
-						else cout << " ";
-					}
-					else if (i == 4) {
-						if (j == 0) cout << "|";
-						else if (j == 11) {
-							cout << "свой вес: ";
-						}
-						else if (j == weight - 9) cout << "|";
-						else cout << " ";
-					}
-					else cout << " ";
-				}
-				cout << "\n";
-			}
+			position = { 10, 4 };
+			SetConsoleCursorPosition(hConsole, position);
+			cout << "свой рост: ";
 
+			position = { 11, 5 };
+			SetConsoleCursorPosition(hConsole, position);
+			cout << "свой вес: ";
 
-			for (int i = 0; i < weight + 1; i++) {
-				cout << "-";
-			}
+			position = { 8, 11 };
+			SetConsoleCursorPosition(hConsole, position);
+			cout << "Ошибка, попробуйте снова";
 
-			cout << "\n";
-
-			for (int i = 0; i < 2; i++)
-			{
-				for (int j = 0; j <= weight; j++) {
-					if (i == 0) {
-						if (j == 0 || j == weight - 23)
-							cout << "|";
-						else if (j == 8) {
-							cout << "Ошибка, попробуйте снова";
-						}
-						else
-							cout << " ";
-					}
-					else
-						if (i == 1) {
-							if (j == 0 || j == weight - 29)
-								cout << "|";
-							else if (j == 5) {
-								cout << "Подсказка, вес от 30 до 200 кг";
-							}
-							else
-								cout << " ";
-						}
-				}
-				cout << "\n";
-			}
-			for (int i = 0; i < weight + 1; i++) {
-				cout << "-";
-			}
+			position = { 5, 12 };
+			SetConsoleCursorPosition(hConsole, position);
+			cout << "Подсказка, вес от 30 до 200 кг";
 
 			position = { 21, 4 };
 			SetConsoleCursorPosition(hConsole, position);
@@ -399,20 +278,16 @@ void errorScreen(int human_weight, int human_height, int height_or_weight) {
 
 			position = { 21, 5 };
 			SetConsoleCursorPosition(hConsole, position);
-
-
 		}
 
 }
 //Ввод данных
-void inputData(int& height, int& weight) {
+void inputData(int* human_height_, int* human_weight_, int weight, int height) {
 
 	char human_height[100]; //человеческий рост
 	char human_weight[100]; //человеческий вес
 
-	bool error_has_been_used = false;
-
-	COORD position = { 21, 4 };
+	position = { 21, 4 };
 	SetConsoleCursorPosition(hConsole, position);
 
 	cin >> human_height;
@@ -421,31 +296,15 @@ void inputData(int& height, int& weight) {
 		do
 		{
 			system("cls");
-			if ((char_to_int(human_height) > 230 || char_to_int(human_height) < 100) && char_to_int(human_height) > 0) {
+			if ((char_to_int(human_height) > 230 || char_to_int(human_height) < 100) && char_to_int(human_height) > 0) { errorScreen(char_to_int(human_weight), char_to_int(human_height), 0, height, weight); }
+			else if (!is_number(human_height)) { errorScreen(char_to_int(human_weight), char_to_int(human_height), 0 ,height, weight); }
 
-				errorScreen(char_to_int(human_weight), char_to_int(human_height), 0);
-
-				error_has_been_used = true;
-			}
-			else if (!is_number(human_height)) {
-
-				errorScreen(char_to_int(human_weight), char_to_int(human_height), 0);
-
-				error_has_been_used = true;
-			}
-			SetConsoleCursorPosition(hConsole, position);
 			cin >> human_height;
+
 		} while ((char_to_int(human_height) > 230 || char_to_int(human_height) < 100) && char_to_int(human_height) > 0 || !is_number(human_height));
 	}
 
-	if (error_has_been_used) {
-		system("cls");
-		position = { 21, 4 };
-		SetConsoleCursorPosition(hConsole, position);
-		cout << char_to_int(human_height);
-	}
-
-	human_height_int = char_to_int(human_height);
+	*human_height_ = char_to_int(human_height);
 
 	position = { 21, 5 };
 	SetConsoleCursorPosition(hConsole, position);
@@ -455,27 +314,14 @@ void inputData(int& height, int& weight) {
 		do
 		{
 			system("cls");
+
 			position = { 21, 4 };
 			SetConsoleCursorPosition(hConsole, position);
 			cout << human_height;
 
-			position = { 21, 5 };
-			SetConsoleCursorPosition(hConsole, position);
+			if (char_to_int(human_weight) < 30 || char_to_int(human_weight) > 200) { errorScreen(char_to_int(human_weight), char_to_int(human_height), 1, height, weight); }
+			else if (!is_number(human_weight)) { errorScreen(char_to_int(human_weight), char_to_int(human_height), 1, height, weight); }
 
-			if (char_to_int(human_weight) < 30 || char_to_int(human_weight) > 200) {
-
-				errorScreen(char_to_int(human_weight), char_to_int(human_height), 1);
-				position = { 0, 12 };
-				SetConsoleCursorPosition(hConsole, position);
-
-			}
-			else if (!is_number(human_weight)) {
-
-				errorScreen(char_to_int(human_weight), char_to_int(human_height), 1);
-				position = { 0, 12 };
-				SetConsoleCursorPosition(hConsole, position);
-
-			}
 			position = { 21, 5 };
 			SetConsoleCursorPosition(hConsole, position);
 			cin >> human_weight;
@@ -483,18 +329,18 @@ void inputData(int& height, int& weight) {
 		} while (char_to_int(human_weight) < 30 || char_to_int(human_weight) > 200 || !is_number(human_weight));
 	}
 
-	human_weight_int = char_to_int(human_weight);
+	*human_weight_ = char_to_int(human_weight);
 
 	position = { 0, 15 };
 	SetConsoleCursorPosition(hConsole, position);
 
 }
 //Жизненный цикл
-void lifeCycle() {
+void lifeCycle(int human_height_int, int human_weight_int, int weight, int height) {
 	bool life_circle = true;
 	char chose;
 
-	mainScreen();
+	mainScreen(height, weight);
 
 	do {
 		//ASCII "Esc" = 27, ASCII "Enter" = 13;
@@ -507,254 +353,112 @@ void lifeCycle() {
 		}
 		else if (chose == 13) {
 			system("cls");
-			operationScreen();
-			inputData(human_height_int, human_weight_int);
+			operationScreen(height, weight);
+			inputData(&human_height_int, &human_weight_int, weight, height);
 
 			int max_average_weight = human_height_int - 100 + 15;
 			int min_average_weight = human_height_int - 100 - 15;
 
 
 			if (min_average_weight <= human_weight_int && human_weight_int <= max_average_weight) {
-				answerScreen(NORMAL_WEIGHT, human_weight_int, human_height_int);
+				answerScreen(NORMAL_WEIGHT, human_weight_int, human_height_int, height, weight);
 			}
 			else if (human_weight_int > max_average_weight) {
-				answerScreen(OVERWEIGHT, human_weight_int, human_height_int);
+				answerScreen(OVERWEIGHT, human_weight_int, human_height_int, height, weight);
 			}
 			else
 				if (human_weight_int < min_average_weight) {
-					answerScreen(UNDERWEIGHT, human_weight_int, human_height_int);
+					answerScreen(UNDERWEIGHT, human_weight_int, human_height_int, height, weight);
 				}
 
 			cout << "\n\n";
 		}
 		else {
 			system("cls");
-			mainScreen();
+			mainScreen(height, weight);
 		}
 
 	} while (life_circle);
 
-	endScreen();
+	endScreen(height, weight);
 
 	cout << "\n\n\n";
 }
 //Завершающий экран
-void endScreen() {
+void endScreen(int height, int weight) {
 
-	int height = 10; //высота окна
-	int weight = 40; //ширина окна
+	Frame1(weight, height);
 
-	for (int i = 0; i < weight + 1; i++) {
-		cout << "-";
-	}
+	position = { 16,3 };
+	SetConsoleCursorPosition(hConsole, position);
+	cout << "Программа";
 
-	cout << "\n";
+	position = { 13,4 };
+	SetConsoleCursorPosition(hConsole, position);
+	cout << "Оптимальный вес";
 
-	for (int i = 0; i < height - 1; i++) {
+	position = { 10,5 };
+	SetConsoleCursorPosition(hConsole, position);
+	cout << "Завершила свою работу";
 
-		bool i_is_not_a_second_third_fourth = (i == 2 || i == 3 || i == 4) ? 0 : 1;
-
-		for (int j = 0; j <= weight; j++)
-		{
-			if ((j == 0 || j == weight) && i_is_not_a_second_third_fourth) {
-				cout << "|";
-			}
-			else if (i == 2) {
-				if (j == 0) cout << "|";
-				else if (j == 16) cout << "Программа";
-				else if (j == weight - 8) cout << "|";
-				else cout << " ";
-			}
-			else if (i == 3) {
-				if (j == 0) cout << "|";
-				else if (j == 13) {
-					cout << "Оптимальный вес";
-				}
-				else if (j == weight - 14) cout << "|";
-				else cout << " ";
-			}
-			else if (i == 4) {
-				if (j == 0) cout << "|";
-				else if (j == 10) {
-					cout << "Завершила свою работу";
-				}
-				else if (j == weight - 20) cout << "|";
-				else cout << " ";
-			}
-			else cout << " ";
-		}
-		cout << "\n";
-	}
+	position = { 13,11 };
+	SetConsoleCursorPosition(hConsole, position);
+	cout << "До новых встреч";
 
 
-	for (int i = 0; i < weight + 1; i++) {
-		cout << "-";
-	}
+	position = { 0, 13 };
+	SetConsoleCursorPosition(hConsole, position);
 
-	cout << "\n";
-
-	for (int i = 0; i < 1; i++)
-	{
-		for (int j = 0; j <= weight; j++) {
-			if (j == 0 || j == weight - 14)
-				cout << "|";
-			else if (j == 13) {
-				cout << "До новых встреч";
-			}
-			else
-				cout << " ";
-		}
-		cout << "\n";
-	}
-	for (int i = 0; i < weight + 1; i++) {
-		cout << "-";
-	}
 }
 //Экран ответа
-void answerScreen(int how_much_weight, int human_weight, int human_height) {
-	int height = 10; //высота окна
-	int weight = 40; //ширина окна
+void answerScreen(int how_much_weight, int human_weight, int human_height, int height, int weight) {
 
 	system("cls");
 
-	for (int i = 0; i < weight + 1; i++) {
-		cout << "-";
-	}
+	Frame2(weight, height);
 
-	cout << "\n";
+	position = { 17, 3 };
+	SetConsoleCursorPosition(hConsole, position);
+	cout << "Введите";
 
-	for (int i = 0; i < height - 1; i++) {
+	position = { 10, 4 };
+	SetConsoleCursorPosition(hConsole, position);
+	cout << "свой рост: ";
 
-		bool i_is_not_a_second_third_fourth = (i == 2 || i == 3 || i == 4) ? 0 : 1;
+	position = { 11, 5 };
+	SetConsoleCursorPosition(hConsole, position);
+	cout << "свой вес: ";
 
-		for (int j = 0; j <= weight; j++)
-		{
-			if ((j == 0 || j == weight) && i_is_not_a_second_third_fourth) {
-				cout << "|";
-			}
-			else if (i == 2) {
-				if (j == 0) cout << "|";
-				else if (j == 17) cout << "Введите";
-				else if (j == weight - 6) cout << "|";
-				else cout << " ";
-			}
-			else if (i == 3) {
-				if (j == 0) cout << "|";
-				else if (j == 10) {
-					cout << "свой рост: ";
-				}
-				else if (j == weight - 10) cout << "|";
-				else cout << " ";
-			}
-			else if (i == 4) {
-				if (j == 0) cout << "|";
-				else if (j == 11) {
-					cout << "свой вес: ";
-				}
-				else if (j == weight - 9) cout << "|";
-				else cout << " ";
-			}
-			else cout << " ";
-		}
-		cout << "\n";
-	}
-
-	for (int i = 0; i < weight + 1; i++) {
-		cout << "-";
-	}
-
-	cout << "\n";
 
 	switch (how_much_weight) {
 	case 0:
-		for (int i = 0; i < 2; i++)
-		{
-			for (int j = 0; j <= weight; j++) {
-				if (i == 0) {
-					if (j == 0 || j == weight - 14)
-						cout << "|";
-					else if (j == 12) {
-						cout << "Ваш вес в норме";
-					}
-					else
-						cout << " ";
-				}
-				else
-					if (i == 1) {
-						if (j == 0 || j == weight - 25)
-							cout << "|";
-						else if (j == 8) {
-							cout << "Enter - Далее, Esc - Выход";
-						}
-						else
-							cout << " ";
-					}
+		position = {13, 11};
+		SetConsoleCursorPosition(hConsole, position);
+		cout << "Ваш вес в норме";
 
-			}
-			cout << "\n";
-		}
+		position = { 8, 12 };
+		SetConsoleCursorPosition(hConsole, position);
+		cout << "Esc - Выход, Enter - Далее";
+
 		break;
 	case 1:
-		for (int i = 0; i < 2; i++)
-		{
-			for (int j = 0; j <= weight; j++) {
-				if (i == 0) {
-					if (j == 0 || j == weight - 17)
-						cout << "|";
-					else if (j == 12) {
-						cout << "Ваш вес выше нормы";
-					}
-					else
-						cout << " ";
-				}
-				else
-					if (i == 1) {
-						if (j == 0 || j == weight - 25)
-							cout << "|";
-						else if (j == 8) {
-							cout << "Enter - Далее, Esc - Выход";
-						}
-						else
-							cout << " ";
-					}
+		position = { 11, 11 };
+		SetConsoleCursorPosition(hConsole, position);
+		cout << "Ваш вес выше нормы";
 
-			}
-			cout << "\n";
-		}
+		position = { 8, 12 };
+		SetConsoleCursorPosition(hConsole, position);
+		cout << "Esc - Выход, Enter - Далее";
 		break;
 	case 2:
-		for (int i = 0; i < 2; i++)
-		{
-			for (int j = 0; j <= weight; j++) {
-				if (i == 0) {
-					if (j == 0 || j == weight - 17)
-						cout << "|";
-					else if (j == 12) {
-						cout << "Ваш вес ниже нормы";
-					}
-					else
-						cout << " ";
-				}
-				else
-					if (i == 1) {
-						if (j == 0 || j == weight - 25)
-							cout << "|";
-						else if (j == 8) {
-							cout << "Enter - Далее, Esc - Выход";
-						}
-						else
-							cout << " ";
-					}
+		position = { 11, 11 };
+		SetConsoleCursorPosition(hConsole, position);
+		cout << "Ваш вес ниже нормы";
 
-			}
-			cout << "\n";
-		}
+		position = { 8, 12 };
+		SetConsoleCursorPosition(hConsole, position);
+		cout << "Esc - Выход, Enter - Далее";
 		break;
-	}
-
-
-	for (int i = 0; i < weight + 1; i++) {
-		cout << "-";
 	}
 
 	position = { 21, 4 };
